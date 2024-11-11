@@ -5,7 +5,7 @@ import BoltonForm from "./components/BoltonForm";
 export default function Home() {
   return (
     <div>
-      <BoltonForm />
+      <p>home page</p>
     </div>
   );
 }

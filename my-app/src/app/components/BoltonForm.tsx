@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react';
 import styles from './BoltonForm.module.css'
+import { useRouter } from 'next/navigation'
 
 
 interface FormData {
@@ -13,6 +14,7 @@ interface FormData {
   }
   
   export default function BoltonForm() {
+    const router = useRouter();
     const [formData, setFormData] = useState<FormData>({
       itemName: '',
       foodQuality: 3,
@@ -43,6 +45,8 @@ interface FormData {
         service: 3,
         comments: '',
       });
+        router.push('/');
+      
     };
   
     return (
