@@ -11,14 +11,20 @@ const LoginForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Here you could add logic to verify the login credentials if needed
+
     console.log('Username:', username);
     console.log('Password:', password);
+
     setUsername('');
     setPassword('');
+
+    router.push('/');
   };
 
   const handleCancel = () => {
-    router.push('/'); // Navigate to the home page
+    router.push('/');
   };
 
   return (
