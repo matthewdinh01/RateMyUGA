@@ -2,6 +2,7 @@ import LogoutButton from "./LogoutButton";
 import NewRankButton from "./NewRankButton";
 import PrevRanking from "./PrevRankings";
 import React from "react";
+import styles from './UsersDataPage.module.css';
 
 const rankings: [string, number][] = [
     ["Bolton Dining Commons", 9],
@@ -13,11 +14,14 @@ const rankings: [string, number][] = [
 function UsersDataPage() {
     return(
         <div>
-            <nav></nav>
-            <h1>Welcome USER!</h1>
-            <h2>Your Rankings</h2>
-            <LogoutButton/>
-            <NewRankButton/>
+            <div className={styles.container1}>
+                <h3>Welcome USER!</h3>
+
+                <NewRankButton/>
+                <LogoutButton/>
+            </div>
+
+            <h1>Your Rankings</h1>
             <PrevRanking rankings={rankings}/>
         </div>
     );

@@ -45,7 +45,7 @@ interface FormData {
         service: 3,
         comments: '',
       });
-        router.push('/');
+        router.push('/pages/Dashboard');
       
     };
   

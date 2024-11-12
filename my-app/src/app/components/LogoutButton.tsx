@@ -1,14 +1,14 @@
+"use client"
 import styles from './LogoutButton.module.css'
-import useRouter from ''
+import { useRouter } from 'next/navigation'
 
-function logout() {
-    /* isLoggedIn = false;*/
-}
+
 
 function LogoutButton() {
+    const router = useRouter();
     return(
         <div>
-            <button /*onClick={logout}*/ className={styles.logoutBtn}>Logout</button>
+            <button onClick={() => router.push('/')} className={styles.logoutBtn}>Logout</button>
         </div>
     );
 }
