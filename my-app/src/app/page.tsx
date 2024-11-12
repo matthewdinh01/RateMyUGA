@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Search, Lock } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 // Enhanced interfaces with auth-related properties
 interface Item {
@@ -96,7 +97,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ value, onChange, placeholder 
 
 const Header: React.FC<HeaderProps> = ({ onSearch, isAuthenticated, onAuthToggle }) => {
   const [searchTerm, setSearchTerm] = React.useState<string>("");
-
+  const router = useRouter()
   const handleSearchChange = (value: string): void => {
     setSearchTerm(value);
     onSearch(value);
@@ -131,8 +132,9 @@ const Header: React.FC<HeaderProps> = ({ onSearch, isAuthenticated, onAuthToggle
               </button>
             ) : (
               <>
+              
                 <button 
-                  onClick={onAuthToggle}
+                  onClick={() => router.push('/pages/login')}
                   className="px-4 py-2 rounded-full bg-red-100 text-red-900 hover:bg-red-200 transition"
                 >
                   Log In
@@ -208,7 +210,8 @@ const ItemCard: React.FC<ItemCardProps> = ({
   </div>
 );
 
-const Home: React.FC = () => {
+const Home: React.FC = () => { 
+  const router = useRouter()
   const [searchResults, setSearchResults] = React.useState<Item[]>(initialItems);
   const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
 

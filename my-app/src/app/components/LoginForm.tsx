@@ -20,7 +20,7 @@ const LoginForm = () => {
     setUsername('');
     setPassword('');
 
-    router.push('/');
+    router.push('/pages/Dashboard');
   };
 
   const handleCancel = () => {
