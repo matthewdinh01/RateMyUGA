@@ -1,0 +1,51 @@
+import mongoose, { Schema, Document, Model } from "mongoose";
+
+interface IRanking extends Document {
+    user: mongoose.Schema.Types.ObjectId;
+    location: mongoose.Schema.Types.ObjectId;
+
+    foodQuality: number;
+    foodVariety: number;
+    service: number;
+    cleanliness: number;
+
+    // foodQuality: number;
+    seatAvailability: number;
+    cheapness: number;
+    waitTime: number;
+
+    //seatAvailability: number;
+    amenities: number;
+    quietness: number;
+    // cleanliness: number;
+    comfortability: number;
+
+    comments: string;
+  }
+  
+  const rankingSchema = new Schema<IRanking>({
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    location: { type: mongoose.Schema.Types.ObjectId, ref: "Location", required: true },
+
+    foodQuality: { type: Number },
+    foodVariety: { type: Number },
+    service: { type: Number },
+    cleanliness: { type: Number },
+
+    // foodQuality: number;
+    seatAvailability: { type: Number },
+    cheapness: { type: Number },
+    waitTime: { type: Number },
+
+    //seatAvailability: number;
+    amenities: { type: Number },
+    quietness: { type: Number },
+    // cleanliness: number;
+    comfortability: { type: Number },
+
+    comments: { type: String },
+  });
+  
+  const Ranking: Model<IRanking> = mongoose.models.Ranking || mongoose.model<IRanking>("Ranking", rankingSchema, "rankings");
+  export default Ranking;
+  
