@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 interface IRanking extends Document {
-    user: mongoose.Schema.Types.ObjectId;
-    location: mongoose.Schema.Types.ObjectId;
+    email: string;
+    location: string;
 
     foodQuality: number;
     foodVariety: number;
@@ -24,10 +24,10 @@ interface IRanking extends Document {
   }
   
   const rankingSchema = new Schema<IRanking>({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    location: { type: mongoose.Schema.Types.ObjectId, ref: "Location", required: true },
+    email: { type: String, required: true },
+    location: { type: String, required: true },
 
-    foodQuality: { type: Number },
+    foodQuality: { type: Number},
     foodVariety: { type: Number },
     service: { type: Number },
     cleanliness: { type: Number },
