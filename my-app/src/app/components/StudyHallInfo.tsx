@@ -6,9 +6,9 @@ import styles from './DiningHallInfo.module.css'; // Reuse the same CSS for cons
 const studyHalls = [
   {
     id: 1,
-    name: 'MLC Study Hall',
-    address: '48 Baxter Street, Athens, GA',
-    image: '/mlc.jpg',
+    name: 'Miller Learning Center (MLC) Study Hall',
+    address: '48 Baxter St. Athens, GA',
+    image: '/MLC.png',
     studyHallScore: {
       total: 8.7,
       quietness: 9.2,
@@ -23,9 +23,9 @@ const studyHalls = [
   },
   {
     id: 2,
-    name: 'Science Library Study Hall',
-    address: '120 Science Drive, Athens, GA',
-    image: '/science-library.jpg',
+    name: 'Science Learning Center (SLC)',
+    address: '130 Carlton St. Athens, GA 30602',
+    image: '/SLC.jpg',
     studyHallScore: {
       total: 8.5,
       quietness: 9.0,
@@ -36,6 +36,57 @@ const studyHalls = [
     comments: [
       { user: 'student3', text: 'Very quiet and spacious.' },
       { user: 'student4', text: 'Perfect for focused studying.' },
+    ],
+  },
+  {
+    id: 3,
+    name: 'Main Library',
+    address: '320 S. Jackson St. Athens, GA',
+    image: '/mainlibrary.jpg',
+    studyHallScore: {
+      total: 8.7,
+      quietness: 9.2,
+      seatingAvailability: 8.5,
+      lighting: 8.8,
+      cleanliness: 8.3,
+    },
+    comments: [
+      { user: 'student1', text: 'Great atmosphere for studying!' },
+      { user: 'student2', text: 'Lighting is excellent, but seating can be limited.' },
+    ],
+  },
+  {
+    id: 4,
+    name: 'Tate Student Center',
+    address: '45 Baxter St. Athens, GA 30602',
+    image: '/tatestudent.jpg',
+    studyHallScore: {
+      total: 8.7,
+      quietness: 9.2,
+      seatingAvailability: 8.5,
+      lighting: 8.8,
+      cleanliness: 8.3,
+    },
+    comments: [
+      { user: 'student1', text: 'Great atmosphere for studying!' },
+      { user: 'student2', text: 'Lighting is excellent, but seating can be limited.' },
+    ],
+  },
+  {
+    id: 5,
+    name: 'McBay Science Library',
+    address: '210 D.W. Brooks Dr. Athens, GA 30602',
+    image: '/science.jpg',
+    studyHallScore: {
+      total: 8.7,
+      quietness: 9.2,
+      seatingAvailability: 8.5,
+      lighting: 8.8,
+      cleanliness: 8.3,
+    },
+    comments: [
+      { user: 'student1', text: 'Great atmosphere for studying!' },
+      { user: 'student2', text: 'Lighting is excellent, but seating can be limited.' },
     ],
   },
 ];

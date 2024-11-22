@@ -8,7 +8,7 @@ const restaurants = [
     id: 1,
     name: 'Tate Chick-fil-A',
     address: '45 Tate Center Drive, Athens, GA',
-    image: '/chickfila.jpg',
+    image: '/tatechick.jpg',
     restaurantScore: {
       total: 9.0,
       foodQuality: 9.5,
@@ -24,8 +24,59 @@ const restaurants = [
   {
     id: 2,
     name: 'Panda Express',
-    address: '78 Food Court Avenue, Athens, GA',
-    image: '/pandaexpress.jpg',
+    address: 'Bulldog Cafe, 45 Baxter St. Athens, GA 30602',
+    image: '/panda.jpg',
+    restaurantScore: {
+      total: 8.2,
+      foodQuality: 8.5,
+      serviceSpeed: 8.0,
+      affordability: 7.8,
+      cleanliness: 8.4,
+    },
+    comments: [
+      { user: 'student3', text: 'Great options, love the orange chicken!' },
+      { user: 'student4', text: 'Sometimes the line gets long.' },
+    ],
+  },
+  {
+    id: 3,
+    name: 'Barberitos',
+    address: 'Market at Tate, 45 Baxter St. Athens, GA 30602',
+    image: '/barberitos.webp',
+    restaurantScore: {
+      total: 8.2,
+      foodQuality: 8.5,
+      serviceSpeed: 8.0,
+      affordability: 7.8,
+      cleanliness: 8.4,
+    },
+    comments: [
+      { user: 'student3', text: 'Great options, love the orange chicken!' },
+      { user: 'student4', text: 'Sometimes the line gets long.' },
+    ],
+  },
+  {
+    id: 4,
+    name: 'Einstein Bros. Bagels at Main Library',
+    address: 'Science Learning Center, 130 Carlton St. Athens, GA 30602',
+    image: '/einsteinbros.jpeg',
+    restaurantScore: {
+      total: 8.2,
+      foodQuality: 8.5,
+      serviceSpeed: 8.0,
+      affordability: 7.8,
+      cleanliness: 8.4,
+    },
+    comments: [
+      { user: 'student3', text: 'Great options, love the orange chicken!' },
+      { user: 'student4', text: 'Sometimes the line gets long.' },
+    ],
+  },
+  {
+    id: 5,
+    name: 'Jittery Joe\'s at MLC',
+    address: 'UGA Miller Learning Center, 48 Baxter St. Athens, GA 30602',
+    image: '/jittery.webp',
     restaurantScore: {
       total: 8.2,
       foodQuality: 8.5,
