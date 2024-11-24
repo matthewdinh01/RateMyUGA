@@ -1,0 +1,197 @@
+.container {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f00;
+  color: #fff;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logoImage {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.searchBar {
+  flex: 1;
+  margin: 0 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.actions {
+  display: flex;
+}
+
+.signOutButton {
+  background-color: #fff;
+  color: #f00;
+  border: 1px solid #f00;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.mainContent {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+}
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 40px;
+  margin: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 1200px;
+}
+
+.cardContent {
+  flex: 2;
+  padding-right: 60px;
+}
+
+.cardHeader {
+  font-size: 2.5rem; /* Increased font size */
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.rating {
+  font-size: 1.6rem; /* Slightly increased font size */
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.address {
+  margin: 10px 0;
+  font-size: 1.3rem; /* Increased font size */
+  font-style: italic;
+}
+
+.scores {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  font-size: 1.4rem; /* Increased font size for sub-ranking categories */
+  /* margin-right: 40px; */
+}
+
+.scores strong {
+  align-items: center;
+  text-align: left;
+}
+
+.scores span {
+  align-items: center;
+}
+
+.scores li {
+  /*
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  */
+  margin-bottom: 10px;
+}
+
+.category {
+  flex: 1;
+}
+
+.extraInfo {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  font-size: 1.4rem;
+}
+
+.extraInfo li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.extraInfo span {
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+.subScore {
+  flex: 0 0 100px;
+  text-align: center;
+}
+
+.defaultScore {
+  flex: 0 0 auto;
+}
+
+.cardImageWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.cardImage {
+  width: 700px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.commentsSection {
+  margin-top: 30px;
+}
+
+.commentInput {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+.postCommentButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.postCommentButton:hover {
+  background-color: #0056b3;
+}
