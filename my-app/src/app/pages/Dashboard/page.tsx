@@ -3,6 +3,7 @@
 import React from 'react';
 import { Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { doLogout } from '@/app/actions';
 //import { useState} from 'react';
 // Base interfaces for data structures
 interface Item {
@@ -125,7 +126,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch, onLogin, onSignUp }) => {
           <div className="flex space-x-2">
         
             <button 
-              onClick={() => router.push('/')}
+              onClick={() => doLogout()}
               className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
             >
               Sign Out
