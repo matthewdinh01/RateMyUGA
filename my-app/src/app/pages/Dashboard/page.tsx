@@ -56,16 +56,16 @@ const initialItems: Item[] = [
   {
     id: "study-spots",
     title: "Study Spots",
-    items: ["Baldwin Hall", "Aderhold Hall", "Miller Learning Center", "Main Library", "Science Library"],
+    items: ["Tate Student Center", "Law Library", "Miller Learning Center", "Main Library", "Science Library", "Science Learning Center"],
     image: "../../../MLC.png",
     description: "Popular study locations on campus"
   },
   {
-    id: "resources",
-    title: "Resources",
-    items: ["MyUGA", "UGAMail", "Athena", "eLC", "SAGE"],
+    id: "restaurants",
+    title: "Restaurants",
+    items: ["Chick-Fil-A", "Panda Express", "Niche Pizza Co.", "Barberitos", "Starbucks", "Jittery Joes", "Einstein Bros"],
     image: "../../../UGA.png",
-    description: "Essential UGA online resources"
+    description: "Other great eating options on campus"
   }
 ];
 
