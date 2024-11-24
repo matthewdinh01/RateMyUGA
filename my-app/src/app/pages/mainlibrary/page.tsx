@@ -3,9 +3,9 @@ import LocationDetails from '@/app/components/LocationDetails';
 
 const BoltonPage = () => {
   const boltonData = {
-    name: 'Miller Learning Center (MLC) Study Hall',
-    address: '48 Baxter St. Athens, GA',
-    image: '/MLC.png',
+    name: 'Main Library',
+    address: '320 S. Jackson St. Athens, GA',
+    image: '/mainlibrary.jpg',
     extraInfo: {
       Printer: true,
       'Rest Area': true,
