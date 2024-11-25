@@ -100,7 +100,7 @@ const LoginForm = () => {
         <button type="button" className={styles.clearButton} onClick={handleCancel}>Cancel</button>
       </form>
       <div className={styles.footer}>
-        <p>Create Account</p>
+        <a href='/pages/register'>Create Account</a>
         <p>About RateMyUGA | About Us</p>
       </div>
     </div>

@@ -3,6 +3,7 @@
 import React from 'react';
 import { Search, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import NavigationBar from './components/NavigationBar';
 
 // Combined interfaces
 interface Item {
@@ -35,7 +36,7 @@ interface NavigationProps {
   onNavClick: (path: string) => void;
 }
 
-type SearchInputEvent = React.ChangeEvent<HTMLInputElement>;
+// type SearchInputEvent = React.ChangeEvent<HTMLInputElement>;
 
 // Helper functions
 const generateSlug = (text: string): string => {
@@ -79,152 +80,152 @@ const navigationItems: NavItem[] = [
   { id: "elc", label: "eLC", path: "https://uga.view.usg.edu" }
 ];
 
-const SearchInput: React.FC<SearchInputProps> = ({ value, onChange, placeholder = "Search" }) => {
-  const handleChange = (e: SearchInputEvent): void => {
-    onChange(e.target.value);
-  };
+// const SearchInput: React.FC<SearchInputProps> = ({ value, onChange, placeholder = "Search" }) => {
+//   const handleChange = (e: SearchInputEvent): void => {
+//     onChange(e.target.value);
+//   };
 
-  return (
-    <div className="relative">
-      <input
-        type="text"
-        value={value}
-        onChange={handleChange}
-        placeholder={placeholder}
-        className="pl-4 pr-10 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-red-500"
-      />
-      <Search className="absolute right-3 top-2.5 text-gray-400 w-5 h-5" />
-    </div>
-  );
-};
+//   return (
+//     <div className="relative">
+//       <input
+//         type="text"
+//         value={value}
+//         onChange={handleChange}
+//         placeholder={placeholder}
+//         className="pl-4 pr-10 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-red-500"
+//       />
+//       <Search className="absolute right-3 top-2.5 text-gray-400 w-5 h-5" />
+//     </div>
+//   );
+// };
 
-const Header: React.FC<{ onSearch: (term: string) => void; isAuthenticated: boolean; setIsAuthenticated: (value: boolean) => void }> = ({ 
-  onSearch, 
-  isAuthenticated, 
-  setIsAuthenticated 
-}) => {
-  const [searchTerm, setSearchTerm] = React.useState<string>("");
-  const [showDropdown, setShowDropdown] = React.useState(false);
-  const router = useRouter();
-  const dropdownRef = React.useRef<HTMLDivElement>(null);
+// const Header: React.FC<{ onSearch: (term: string) => void; isAuthenticated: boolean; setIsAuthenticated: (value: boolean) => void }> = ({ 
+//   onSearch, 
+//   isAuthenticated, 
+//   setIsAuthenticated 
+// }) => {
+//   const [searchTerm, setSearchTerm] = React.useState<string>("");
+//   const [showDropdown, setShowDropdown] = React.useState(false);
+//   const router = useRouter();
+//   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
-  const handleSearchChange = (value: string): void => {
-    setSearchTerm(value);
-    onSearch(value);
-  };
+//   const handleSearchChange = (value: string): void => {
+//     setSearchTerm(value);
+//     onSearch(value);
+//   };
 
-  React.useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setShowDropdown(false);
-      }
-    }
+//   React.useEffect(() => {
+//     function handleClickOutside(event: MouseEvent) {
+//       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+//         setShowDropdown(false);
+//       }
+//     }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+//     document.addEventListener('mousedown', handleClickOutside);
+//     return () => document.removeEventListener('mousedown', handleClickOutside);
+//   }, []);
 
-  return (
-    <header className="p-4 border-b">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <button 
-          onClick={() => router.push(isAuthenticated ? '/pages/Dashboard' : '/')}
-          className="flex items-center space-x-2 hover:opacity-80 transition"
-        >
-          <img 
-            src="uga-logo.png" 
-            alt="UGA Logo" 
-            className="w-10 h-10"
-          />
-          <h1 className="text-2xl font-bold">RateMyUGA</h1>
-          <p className="#BA0C2F">University of Georgia</p>
-        </button>
+//   return (
+//     <header className="p-4 border-b">
+//       <div className="max-w-7xl mx-auto flex items-center justify-between">
+//         <button 
+//           onClick={() => router.push(isAuthenticated ? '/pages/Dashboard' : '/')}
+//           className="flex items-center space-x-2 hover:opacity-80 transition"
+//         >
+//           <img 
+//             src="uga-logo.png" 
+//             alt="UGA Logo" 
+//             className="w-10 h-10"
+//           />
+//           <h1 className="text-2xl font-bold">RateMyUGA</h1>
+//           <p className="#BA0C2F">University of Georgia</p>
+//         </button>
         
-        <div className="flex items-center space-x-4">
-          <SearchInput
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
+//         <div className="flex items-center space-x-4">
+//           <SearchInput
+//             value={searchTerm}
+//             onChange={handleSearchChange}
+//           />
           
-          <div className="flex space-x-2">
-            {isAuthenticated ? (
-              <>
-                <button 
-                  onClick={() => setIsAuthenticated(false)}
-                  className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
-                >
-                  Sign Out
-                </button>
+//           <div className="flex space-x-2">
+//             {isAuthenticated ? (
+//               <>
+//                 <button 
+//                   onClick={() => setIsAuthenticated(false)}
+//                   className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
+//                 >
+//                   Sign Out
+//                 </button>
                 
-                <div className="relative" ref={dropdownRef}>
-                  <button 
-                    onClick={() => setShowDropdown(!showDropdown)}
-                    className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
-                  >
-                    Submit New Rank
-                  </button>
+//                 <div className="relative" ref={dropdownRef}>
+//                   <button 
+//                     onClick={() => setShowDropdown(!showDropdown)}
+//                     className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
+//                   >
+//                     Submit New Rank
+//                   </button>
                   
-                  {showDropdown && (
-                    <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-50">
-                      <button
-                        onClick={() => {
-                          router.push('/pages/create-bolton-rating');
-                          setShowDropdown(false);
-                        }}
-                        className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-red-50 transition"
-                      >
-                        Dining Hall
-                      </button>
-                      <button
-                        onClick={() => {
-                          router.push('/pages/create-study-rating');
-                          setShowDropdown(false);
-                        }}
-                        className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-red-50 transition"
-                      >
-                        Study Spots
-                      </button>
-                      <button
-                        onClick={() => {
-                          router.push('/pages/create-restaurant-rating');
-                          setShowDropdown(false);
-                        }}
-                        className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-red-50 transition"
-                      >
-                        Restaurants
-                      </button>
-                    </div>
-                  )}
-                </div>
+//                   {showDropdown && (
+//                     <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-50">
+//                       <button
+//                         onClick={() => {
+//                           router.push('/pages/create-bolton-rating');
+//                           setShowDropdown(false);
+//                         }}
+//                         className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-red-50 transition"
+//                       >
+//                         Dining Hall
+//                       </button>
+//                       <button
+//                         onClick={() => {
+//                           router.push('/pages/create-study-rating');
+//                           setShowDropdown(false);
+//                         }}
+//                         className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-red-50 transition"
+//                       >
+//                         Study Spots
+//                       </button>
+//                       <button
+//                         onClick={() => {
+//                           router.push('/pages/create-restaurant-rating');
+//                           setShowDropdown(false);
+//                         }}
+//                         className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-red-50 transition"
+//                       >
+//                         Restaurants
+//                       </button>
+//                     </div>
+//                   )}
+//                 </div>
 
-                <button 
-                  onClick={() => router.push('/pages/user-data-page')}
-                  className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
-                >
-                  User Data
-                </button>
-              </>
-            ) : (
-              <>
-                <button 
-                  onClick={() => setIsAuthenticated(true)}
-                  className="px-4 py-2 rounded-full bg-red-100 text-red-900 hover:bg-red-200 transition"
-                >
-                  Log In
-                </button>
-                <button 
-                  className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
-                >
-                  Sign Up
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-};
+//                 <button 
+//                   onClick={() => router.push('/pages/user-data-page')}
+//                   className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
+//                 >
+//                   User Data
+//                 </button>
+//               </>
+//             ) : (
+//               <>
+//                 <button 
+//                   onClick={() => setIsAuthenticated(true)}
+//                   className="px-4 py-2 rounded-full bg-red-100 text-red-900 hover:bg-red-200 transition"
+//                 >
+//                   Log In
+//                 </button>
+//                 <button 
+//                   className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
+//                 >
+//                   Sign Up
+//                 </button>
+//               </>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+//     </header>
+//   );
+// };
 
 const Navigation: React.FC<NavigationProps> = ({ items, onNavClick }) => (
   <nav className="bg-gray-100 p-4">
@@ -322,11 +323,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header 
-        onSearch={handleSearch}
-        isAuthenticated={isAuthenticated}
-        setIsAuthenticated={setIsAuthenticated}
-      />
+      <NavigationBar/>
       <Navigation 
         items={navigationItems}
         onNavClick={handleNavigation}

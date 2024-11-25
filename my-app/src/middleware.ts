@@ -19,8 +19,6 @@ export async function middleware(request: any) {
 
 export const config = {
     matcher: [
-        ,
-        "/pages/Dashboard",
-        "/pages/user-data-page"
+        "/pages/"
     ]
 }

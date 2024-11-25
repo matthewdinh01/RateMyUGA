@@ -63,7 +63,7 @@ async function getData(): Promise<Location> {
     comfortScore /= dataCount;
 
     return {
-      name: "Main Library",
+      name: "Science Library",
       address: "210 D.W. Brooks Dr. Athens, GA 30602",
       image: "/science.jpg",
       extraInfo: {

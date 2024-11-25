@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import styles from "./RegisterForm.module.css"
 
 export default function RegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
 
   const router = useRouter();
@@ -15,8 +17,13 @@ export default function RegisterForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!name || !email || !password) {
-      setError("All fields are necessary.");
+    if (!name || !email || !password || !confirm) {
+      alert("All fields are necessary.");
+      return;
+    }
+
+    if (password !== confirm) {
+      alert("Passwords do not match.");
       return;
     }
 
@@ -32,7 +39,7 @@ export default function RegisterForm() {
       const { user } = await resUserExists.json();
 
       if (user) {
-        setError("User already exists.");
+        alert("User already exists.");
         return;
       }
 
@@ -51,50 +58,75 @@ export default function RegisterForm() {
       if (res.ok) {
         const form = e.target;
         //form.reset();
-        router.push("/dashboard");
+        alert("Registration successful!");
+        router.push("/pages/login");
       } else {
-        console.log("User registration failed.");
+        alert("Registration failed.");
       }
     } catch (error) {
-      console.log("Error during registration: ", error);
+      alert("Error during registration.");
     }
   };
 
   return (
-    <div className="grid place-items-center h-screen">
-      <div className="shadow-lg p-5 rounded-lg border-t-4 border-green-400">
-        <h1 className="text-xl font-bold my-4">Register</h1>
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+    <div className={styles.container}>
+      <h1 className={styles.header}>Register for RateMyUGA</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.inputGroup}>
+          <label htmlFor="name" className={styles.label}>Name:</label>
           <input
+            type="text"
+            id="name"
+            name="name"
+            className={styles.inputField}
+            value={name}
             onChange={(e) => setName(e.target.value)}
-            type="text"
-            placeholder="Full Name"
+            required
           />
+        </div>
+        <div className={styles.inputGroup}>
+          <label htmlFor="email" className={styles.label}>Email:</label>
           <input
+            type="email"
+            id="email"
+            name="email"
+            className={styles.inputField}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
-            type="text"
-            placeholder="Email"
+            required
           />
+        </div>
+        <div className={styles.inputGroup}>
+          <label htmlFor="password" className={styles.label}>Password:</label>
           <input
-            onChange={(e) => setPassword(e.target.value)}
             type="password"
-            placeholder="Password"
+            id="password"
+            name="password"
+            className={styles.inputField}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
-          <button className="bg-green-600 text-white font-bold cursor-pointer px-6 py-2">
-            Register
-          </button>
-
-          {error && (
-            <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
-              {error}
-            </div>
-          )}
-
-          <Link className="text-sm mt-3 text-right" href={"/"}>
-            Already have an account? <span className="underline">Login</span>
-          </Link>
-        </form>
+        </div>
+        <div className={styles.inputGroup}>
+          <label htmlFor="confirm" className={styles.label}>Confirm Password:</label>
+          <input
+            type="password"
+            id="confirm"
+            name="confirm"
+            className={styles.inputField}
+            value={confirm}
+            onChange={(e) => setConfirm(e.target.value)}
+            required
+          />
+        </div>
+        {error && <div className={styles.error}>{error}</div>}
+        <button type="submit" className={styles.loginButton}>
+          Register
+        </button>
+      </form>
+      <div className={styles.footer}>
+        <Link href="/pages/login">Already have an account? Login</Link>
       </div>
     </div>
   );

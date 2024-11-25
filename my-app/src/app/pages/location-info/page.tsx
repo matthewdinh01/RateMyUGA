@@ -1,4 +1,4 @@
-import LocationInfo from "@/app/components/database-calls/LocationInfo";
+import Location
 
 
 export default function UserDataPage() {

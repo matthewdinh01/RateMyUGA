@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import LocationDetails from "@/app/components/LocationDetails";
+import NavigationBar from "@/app/components/NavigationBar";
 
 // Define the shape of the data returned by the API
 interface Ranking {
@@ -105,7 +106,9 @@ const BarberitosPage = () => {
     return <div>Loading...</div>;
   }
 
-  return <LocationDetails location={data} />;
+  return (
+    <LocationDetails location={data} />
+  );
 };
 
 export default BarberitosPage;
