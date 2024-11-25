@@ -5,7 +5,7 @@ const BoltonPage = () => {
   const boltonData = {
     name: 'Science Learning Center (SLC)',
     address: '130 Carlton St. Athens, GA 30602',
-    image: '/SLC.png',
+    image: '/SLC.jpg',
     extraInfo: {
       Printer: true,
       'Rest Area': true,

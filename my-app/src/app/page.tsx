@@ -4,7 +4,7 @@ import React from 'react';
 import { Search, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-// Enhanced interfaces with auth-related properties
+// Combined interfaces
 interface Item {
   id: string;
   title: string;
@@ -19,16 +19,9 @@ interface NavItem {
   path: string;
 }
 
-// Updated component props interfaces
 interface ItemCardProps extends Item {
   onClick?: (id: string) => void;
   isAuthenticated: boolean;
-}
-
-interface HeaderProps {
-  onSearch: (term: string) => void;
-  isAuthenticated: boolean;
-  onAuthToggle: () => void;
 }
 
 interface SearchInputProps {
@@ -44,7 +37,17 @@ interface NavigationProps {
 
 type SearchInputEvent = React.ChangeEvent<HTMLInputElement>;
 
-// Dummy data remains the same
+// Helper functions
+const generateSlug = (text: string): string => {
+  return text.toLowerCase().replace(/\s+/g, '-');
+};
+
+const getItemPath = (category: string, item: string): string => {
+  const itemSlug = generateSlug(item);
+  return `/pages/${itemSlug}`;
+};
+
+// Dummy data
 const initialItems: Item[] = [
   {
     id: "dining-halls",
@@ -56,24 +59,24 @@ const initialItems: Item[] = [
   {
     id: "study-spots",
     title: "Study Spots",
-    items: ["Tate Student Center", "Law Library", "Miller Learning Center", "Main Library", "Science Library", "Science Learning Center"],
+    items: ["Tate Student Center", "Miller Learning Center", "Main Library", "Science Library", "Science Learning Center"],
     image: "MLC.png",
     description: "Popular study locations on campus"
   },
   {
     id: "restaurants",
     title: "Restaurants",
-    items: ["Chick-Fil-A", "Panda Express", "Niche Pizza Co.", "Barberitos", "Starbucks", "Jittery Joes", "Einstein Bros"],
-    image: "UGA.png",
+    items: ["Chick-Fil-A", "Panda Express", "Barberitos", "Jittery Joes", "Einstein Bros"],
+    image: "panda-express.jpg",
     description: "Other great eating options on campus"
   }
 ];
 
 const navigationItems: NavItem[] = [
-  { id: "campus", label: "UGA Campus", path: "/campus" },
-  { id: "map", label: "Map & Directions", path: "/map" },
-  { id: "mail", label: "UGAMail", path: "/mail" },
-  { id: "elc", label: "eLC", path: "/elc" }
+  { id: "campus", label: "UGA Campus", path: "https://www.uga.edu" },
+  { id: "map", label: "Map & Directions", path: "https://www.google.com/maps/search/uga+campus+map" },
+  { id: "mail", label: "UGAMail", path: "https://outlook.office.com/mail/" },
+  { id: "elc", label: "eLC", path: "https://uga.view.usg.edu" }
 ];
 
 const SearchInput: React.FC<SearchInputProps> = ({ value, onChange, placeholder = "Search" }) => {
@@ -95,18 +98,39 @@ const SearchInput: React.FC<SearchInputProps> = ({ value, onChange, placeholder 
   );
 };
 
-const Header: React.FC<HeaderProps> = ({ onSearch, isAuthenticated, onAuthToggle }) => {
+const Header: React.FC<{ onSearch: (term: string) => void; isAuthenticated: boolean; setIsAuthenticated: (value: boolean) => void }> = ({ 
+  onSearch, 
+  isAuthenticated, 
+  setIsAuthenticated 
+}) => {
   const [searchTerm, setSearchTerm] = React.useState<string>("");
-  const router = useRouter()
+  const [showDropdown, setShowDropdown] = React.useState(false);
+  const router = useRouter();
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+
   const handleSearchChange = (value: string): void => {
     setSearchTerm(value);
     onSearch(value);
   };
 
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <header className="p-4 border-b">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center space-x-2">
+        <button 
+          onClick={() => router.push(isAuthenticated ? '/pages/Dashboard' : '/')}
+          className="flex items-center space-x-2 hover:opacity-80 transition"
+        >
           <img 
             src="uga-logo.png" 
             alt="UGA Logo" 
@@ -114,7 +138,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch, isAuthenticated, onAuthToggle
           />
           <h1 className="text-2xl font-bold">RateMyUGA</h1>
           <p className="#BA0C2F">University of Georgia</p>
-        </div>
+        </button>
         
         <div className="flex items-center space-x-4">
           <SearchInput
@@ -124,17 +148,66 @@ const Header: React.FC<HeaderProps> = ({ onSearch, isAuthenticated, onAuthToggle
           
           <div className="flex space-x-2">
             {isAuthenticated ? (
-              <button 
-                onClick={onAuthToggle}
-                className="px-4 py-2 rounded-full bg-green-500 text-white hover:bg-green-600 transition"
-              >
-                Sign Out
-              </button>
+              <>
+                <button 
+                  onClick={() => setIsAuthenticated(false)}
+                  className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
+                >
+                  Sign Out
+                </button>
+                
+                <div className="relative" ref={dropdownRef}>
+                  <button 
+                    onClick={() => setShowDropdown(!showDropdown)}
+                    className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
+                  >
+                    Submit New Rank
+                  </button>
+                  
+                  {showDropdown && (
+                    <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-50">
+                      <button
+                        onClick={() => {
+                          router.push('/pages/create-bolton-rating');
+                          setShowDropdown(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-red-50 transition"
+                      >
+                        Dining Hall
+                      </button>
+                      <button
+                        onClick={() => {
+                          router.push('/pages/create-study-rating');
+                          setShowDropdown(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-red-50 transition"
+                      >
+                        Study Spots
+                      </button>
+                      <button
+                        onClick={() => {
+                          router.push('/pages/create-restaurant-rating');
+                          setShowDropdown(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-red-50 transition"
+                      >
+                        Restaurants
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                <button 
+                  onClick={() => router.push('/pages/user-data-page')}
+                  className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
+                >
+                  User Data
+                </button>
+              </>
             ) : (
               <>
-              
                 <button 
-                  onClick={() => router.push('/pages/login')}
+                  onClick={() => setIsAuthenticated(true)}
                   className="px-4 py-2 rounded-full bg-red-100 text-red-900 hover:bg-red-200 transition"
                 >
                   Log In
@@ -159,7 +232,7 @@ const Navigation: React.FC<NavigationProps> = ({ items, onNavClick }) => (
       {items.map(({ id, label, path }) => (
         <button
           key={id}
-          onClick={() => onNavClick(path)}
+          onClick={() => window.open(path, '_blank', 'noopener,noreferrer')}
           className="px-6 py-2 rounded-full bg-white hover:bg-gray-50 transition"
         >
           {label}
@@ -177,43 +250,59 @@ const ItemCard: React.FC<ItemCardProps> = ({
   description, 
   onClick,
   isAuthenticated 
-}) => (
-  <div 
-    className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
-    onClick={() => onClick?.(id)}
-  >
-    <img src={image} alt={title} className="w-full h-48 object-cover" />
-    <div className="p-4">
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      {description && (
-        <p className="text-gray-600 mb-4">{description}</p>
-      )}
-      {isAuthenticated ? (
-        <ul className="space-y-2">
-          {items.map((item, index) => (
-            <li key={index} className="flex items-center space-x-2">
-              <span className="text-gray-600">•</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div className="flex flex-col items-center justify-center p-6 text-center space-y-4 bg-gray-50 rounded-lg">
-          <Lock className="w-8 h-8 text-gray-400" />
-          <p className="text-gray-600">Sign in to access content</p>
-          <button className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition text-sm">
-            Log In to View
-          </button>
-        </div>
-      )}
-    </div>
-  </div>
-);
+}) => {
+  const router = useRouter();
 
-const Home: React.FC = () => { 
-  const router = useRouter()
-  const [searchResults, setSearchResults] = React.useState<Item[]>(initialItems);
+  const handleItemClick = (e: React.MouseEvent, item: string) => {
+    if (!isAuthenticated) return;
+    e.stopPropagation();
+    const path = getItemPath(id, item);
+    router.push(path);
+  };
+
+  return (
+    <div 
+      className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+      onClick={() => onClick?.(id)}
+    >
+      <img src={image} alt={title} className="w-full h-48 object-cover" />
+      <div className="p-4">
+        <h3 className="text-xl font-semibold mb-2">{title}</h3>
+        {description && (
+          <p className="text-gray-600 mb-4">{description}</p>
+        )}
+        {isAuthenticated ? (
+          <ul className="space-y-2">
+            {items.map((item, index) => (
+              <li key={index} className="flex items-center space-x-2">
+                <span className="text-gray-600">•</span>
+                <button
+                  onClick={(e) => handleItemClick(e, item)}
+                  className="text-blue-600 hover:text-blue-800 hover:underline text-left"
+                >
+                  {item}
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="flex flex-col items-center justify-center p-6 text-center space-y-4 bg-gray-50 rounded-lg">
+            <Lock className="w-8 h-8 text-gray-400" />
+            <p className="text-gray-600">Sign in to access content</p>
+            <button className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition text-sm">
+              Log In to View
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const Home: React.FC = () => {
+  // Set this to true to show logged-in state, false for logged-out state
   const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
+  const [searchResults, setSearchResults] = React.useState<Item[]>(initialItems);
 
   const handleSearch = (term: string): void => {
     const filtered = initialItems.filter(item => 
@@ -224,15 +313,11 @@ const Home: React.FC = () => {
   };
 
   const handleNavigation = (path: string): void => {
-    console.log(`Navigating to: ${path}`);
+    window.open(path, '_blank', 'noopener,noreferrer');
   };
 
   const handleItemClick = (id: string): void => {
     console.log(`Clicked item: ${id}`);
-  };
-
-  const handleAuthToggle = (): void => {
-    setIsAuthenticated(!isAuthenticated);
   };
 
   return (
@@ -240,7 +325,7 @@ const Home: React.FC = () => {
       <Header 
         onSearch={handleSearch}
         isAuthenticated={isAuthenticated}
-        onAuthToggle={handleAuthToggle}
+        setIsAuthenticated={setIsAuthenticated}
       />
       <Navigation 
         items={navigationItems}
