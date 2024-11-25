@@ -2,54 +2,95 @@
 import React, { useState } from 'react';
 import styles from './BoltonForm.module.css';
 import { useRouter } from 'next/navigation';
+import { getSession } from "next-auth/react";
 
 interface FormData {
-  studySpot: string;
+  email: string;
+  location: string;
   seatAvailability: number;
   amenities: number;
   quietness: number;
   cleanliness: number;
-  comfortability: number;
+  comfort: number;
   comments: string;
 }
 
 export default function StudySpotForm() {
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
-    studySpot: '',
+    email: '',
+    location: '',
     seatAvailability: 5,
     amenities: 5,
     quietness: 5,
     cleanliness: 5,
-    comfortability: 5,
+    comfort: 5,
     comments: '',
   });
 
   const studySpots = [
     'Select Study Spot',
-    'Main Library',
-    'Science Library',
-    'Law Library',
-    'Miller Learning Center',
-    'Tate Student Center',
-    'Science Learning Center'
+    'Main-Library',
+    'Science-Library',
+    'Law-Library',
+    'Miller-Learning-Center',
+    'Tate-Student-Center',
+    'Science-Learning-Center'
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: ['seatAvailability', 'amenities', 'quietness', 'cleanliness', 'comfortability'].includes(name)
+      [name]: ['seatAvailability', 'amenities', 'quietness', 'cleanliness', 'comfort'].includes(name)
         ? Math.min(10, Math.max(0, Number(value)))
         : value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Submitted data:', formData);
-    // Add your submission logic here
-    router.push('/pages/Dashboard');
+    e.preventDefault(); // Prevent default form submission behavior
+  
+    try {
+      // Get the user session
+      const session = await getSession();
+      const user = session?.user;
+      const email = user?.email;
+  
+      if (!email) {
+        console.error("User email not found");
+        return;
+      }
+  
+      // Update the email field in formData
+      setFormData((prev) => ({
+        ...prev,
+        email, // Dynamically set the email field
+      }));
+  
+      console.log("Submitted data:", { ...formData, email }); // Ensure email is included
+  
+      // Example POST request
+      const res = await fetch("/api/rankings/poststudy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          email, // Ensure email is sent in the request body
+        }),
+      });
+  
+      if (res.ok) {
+        console.log("Form submitted successfully");
+        router.push("/pages/Dashboard");
+      } else {
+        console.error("Form submission failed");
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err);
+    }
   };
 
   return (
@@ -57,8 +98,8 @@ export default function StudySpotForm() {
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-lg shadow-md">
         <div className="space-y-4">
           <select
-            name="studySpot"
-            value={formData.studySpot}
+            name="location"
+            value={formData.location}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md"
             required
@@ -70,7 +111,7 @@ export default function StudySpotForm() {
             ))}
           </select>
 
-          {['seatAvailability', 'amenities', 'quietness', 'cleanliness', 'comfortability'].map(field => (
+          {['seatAvailability', 'amenities', 'quietness', 'cleanliness', 'comfort'].map(field => (
             <div key={field} className="flex items-center space-x-4">
               <label className="w-32 font-medium capitalize">
                 {field.replace(/([A-Z])/g, ' $1').trim()}:

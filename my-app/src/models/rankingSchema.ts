@@ -18,7 +18,7 @@ interface IRanking extends Document {
     amenities: number;
     quietness: number;
     // cleanliness: number;
-    comfortability: number;
+    comfort: number;
 
     comments: string;
   }
@@ -41,7 +41,7 @@ interface IRanking extends Document {
     amenities: { type: Number },
     quietness: { type: Number },
     // cleanliness: number;
-    comfortability: { type: Number },
+    comfort: { type: Number },
 
     comments: { type: String },
   });

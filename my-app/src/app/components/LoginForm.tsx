@@ -14,16 +14,22 @@ const LoginForm = () => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
+    //console.log(formData)
+    try {
+      await doCredentialLogin(formData);
+      router.push("/pages/Dashboard")
+    } catch (err: any) {
+      console.log(err);
     }
-    console.log(formData)
-    const response = await doCredentialLogin(formData);
-    if (response.ok) {
-      router.push("/dashboard")
-    } else {
-      console.log("get fucked");    
-    }
+    // console.log("hello", response)
+    // if (response.ok) {
+    //   router.push("/pages/Dashboard")
+    // } else {
+    //   console.log("get fucked");    
+    // }
     // console.log(formData);
 
     // try {

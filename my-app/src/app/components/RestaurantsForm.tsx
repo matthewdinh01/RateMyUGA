@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import styles from './BoltonForm.module.css';
 import { useRouter } from 'next/navigation';
+import { getSession } from "next-auth/react";
 
 interface FormData {
-  restaurant: string;
+  email: string;
+  location: string;
   foodQuality: number;
   seatAvailability: number;
   cheapness: number;
@@ -15,7 +17,8 @@ interface FormData {
 export default function RestaurantForm() {
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
-    restaurant: '',
+    email: '',
+    location: '',
     foodQuality: 5,
     seatAvailability: 5,
     cheapness: 5,
@@ -26,12 +29,12 @@ export default function RestaurantForm() {
   const restaurants = [
     'Select Restaurant',
     'Chick-Fil-A',
-    'Panda Express',
-    'The Niche Pizza Co.',
+    'Panda-Express',
+    'The-Niche-Pizza-Co.',
     'Starbucks',
-    'Jittery Joes',
+    'Jittery-Joes',
     'Barberitos',
-    'Einstein Bros'
+    'Einstein-Bros'
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -45,19 +48,58 @@ export default function RestaurantForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Submitted data:', formData);
-    // Add your submission logic here
-    router.push('/pages/Dashboard');
+    e.preventDefault(); // Prevent default form submission behavior
+  
+    try {
+      // Get the user session
+      const session = await getSession();
+      const user = session?.user;
+      const email = user?.email;
+  
+      if (!email) {
+        console.error("User email not found");
+        return;
+      }
+  
+      // Update the email field in formData
+      setFormData((prev) => ({
+        ...prev,
+        email, // Dynamically set the email field
+      }));
+  
+      console.log("Submitted data:", { ...formData, email }); // Ensure email is included
+  
+      // Example POST request
+      const res = await fetch("/api/rankings/postrest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          email, // Ensure email is sent in the request body
+        }),
+      });
+  
+      if (res.ok) {
+        console.log("Form submitted successfully");
+        router.push("/pages/Dashboard");
+      } else {
+        console.error("Form submission failed");
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err);
+    }
   };
+  
 
   return (
     <div className="w-full max-w-2xl mx-auto p-6">
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-lg shadow-md">
         <div className="space-y-4">
           <select
-            name="restaurant"
-            value={formData.restaurant}
+            name="location"
+            value={formData.location}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md"
             required

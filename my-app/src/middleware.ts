@@ -19,6 +19,8 @@ export async function middleware(request: any) {
 
 export const config = {
     matcher: [
-        "/pages/create-bolton-rating"
+        "/pages/create-bolton-rating",
+        "/pages/Dashboard",
+        "/pages/user-data-page"
     ]
 }

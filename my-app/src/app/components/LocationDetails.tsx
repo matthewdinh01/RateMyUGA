@@ -128,7 +128,7 @@ const LocationDetails: React.FC<{ location: Location }> = ({ location }) => {
                   </li>
                 ))}
               </ul>
-              <textarea
+              {/* <textarea
                 className={styles.commentInput}
                 placeholder="Add a comment..."
                 value={newComment}
@@ -139,7 +139,7 @@ const LocationDetails: React.FC<{ location: Location }> = ({ location }) => {
                 className={styles.postCommentButton}
               >
                 Post Comment
-              </button>
+              </button> */}
             </div>
           </div>
           <div className={styles.cardImageWrapper}>
