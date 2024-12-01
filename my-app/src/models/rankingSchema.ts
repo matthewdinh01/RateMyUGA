@@ -21,6 +21,7 @@ interface IRanking extends Document {
     comfort: number;
 
     comments: string;
+    images: string;
   }
   
   const rankingSchema = new Schema<IRanking>({
@@ -44,6 +45,7 @@ interface IRanking extends Document {
     comfort: { type: Number },
 
     comments: { type: String },
+    images: { type: String }
   });
   
   const Ranking: Model<IRanking> = mongoose.models.Ranking || mongoose.model<IRanking>("Ranking", rankingSchema, "rankings");

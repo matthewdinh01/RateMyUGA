@@ -14,6 +14,7 @@ interface FormData {
   cleanliness: number;
   comfort: number;
   comments: string;
+  images: string;
 }
 
 // Main Form Component
@@ -28,6 +29,7 @@ export default function StudySpotForm() {
     cleanliness: 5,
     comfort: 5,
     comments: '',
+    images: ''
   });
 
   const studySpots = [
@@ -146,6 +148,20 @@ export default function StudySpotForm() {
                 className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
               />
             </div>
+
+            <div className="space-y-2">
+              <label className="block font-medium">
+                Upload Image:
+              </label>
+              <textarea
+                name="images"
+                value={formData.images}
+                onChange={handleChange}
+                placeholder="https://images.unsplash.com/photo-1"
+                className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
+              />
+            </div>
+
           </div>
 
           <button

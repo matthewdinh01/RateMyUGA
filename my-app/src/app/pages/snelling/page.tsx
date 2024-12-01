@@ -11,6 +11,7 @@ interface Ranking {
   service?: number;
   cleanliness?: number;
   comments: string;
+  images: string;
 }
 
 interface Location {
@@ -20,6 +21,7 @@ interface Location {
   extraInfo?: { [key: string]: boolean };
   scores: { [key: string]: number };
   comments: { user: string; text: string }[];
+  images: { user: string; text: string }[];
 }
 
 async function getData(): Promise<Location> {
@@ -43,6 +45,7 @@ async function getData(): Promise<Location> {
     let serviceScore = 0;
     let cleanlinessScore = 0;
     const commentsArray: { user: string; text: string }[] = [];
+    const imageArray: { user: string; text: string }[] = [];
 
     data.forEach((ranking) => {
       qualityScore += ranking.foodQuality || 0;
@@ -50,6 +53,7 @@ async function getData(): Promise<Location> {
       serviceScore += ranking.service || 0;
       cleanlinessScore += ranking.cleanliness || 0;
       commentsArray.push({ user: ranking.email, text: ranking.comments });
+      imageArray.push({ user: ranking.email, text: ranking.images });
     });
 
     const dataCount = data.length || 1; // Avoid division by zero
@@ -73,6 +77,7 @@ async function getData(): Promise<Location> {
         Service: serviceScore,
       },
       comments: commentsArray,
+      images: imageArray
     };
   } catch (err) {
     console.error("Error fetching data:", err);

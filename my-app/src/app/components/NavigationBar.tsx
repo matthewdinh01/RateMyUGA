@@ -139,7 +139,7 @@ const NavigationBar: React.FC = () => {
                   onClick={() => router.push("/pages/user-data-page")}
                   className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
                 >
-                  User Data
+                  My Rankings
                 </button>
               </>
             )}

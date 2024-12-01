@@ -1,5 +1,4 @@
-
-/* General Styles */
+/* 
 
 .container {
   padding: 0;
@@ -14,12 +13,11 @@
   line-height: 1.6;
 }
 
-/* Header Styles */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #d62828; /* Rich red for UGA branding */
+  background-color: #d62828; 
   color: #fff;
   padding: 15px 20px;
   position: fixed;
@@ -68,6 +66,154 @@
 .signOutButton:hover {
   background-color: #d62828;
   color: #fff;
+}
+
+
+.mainContent {
+  margin-top: 80px; 
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  min-height: calc(100vh - 80px);
+  background-color: #f8f9fa;
+}
+
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 1200px;
+  overflow: hidden;
+}
+
+.cardContent {
+  flex: 2;
+  padding: 30px;
+}
+
+.cardHeader {
+  font-size: 2rem;
+  color: #d62828;
+  margin-bottom: 20px;
+}
+
+.address {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.extraInfo,
+.scores {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  font-size: 1.1rem;
+}
+
+.extraInfo li,
+.scores li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.extraInfo strong,
+.scores strong {
+  font-weight: bold;
+}
+
+.extraInfo span,
+.scores span {
+  font-weight: normal;
+}
+
+.cardImageWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+}
+
+.cardImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0 10px 10px 0;
+  object-fit: cover;
+}
+
+.rating {
+  font-size: 1.5rem;
+  color: #333;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.commentsSection {
+  margin-top: 30px;
+}
+
+.commentsSection h2 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+}
+
+.commentsSection ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.commentsSection ul li {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.commentInput {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: none;
+  font-size: 1rem;
+}
+
+.postCommentButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.postCommentButton:hover {
+  background-color: #0056b3;
+} */
+
+/* ----------------------------------------------------------------------------- */
+
+
+/* General Styles */
+.container {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 /* Main Content Styles */
@@ -177,37 +323,32 @@
 }
 
 .commentsSection ul li {
+  display: flex; /* Add flex layout for image and text */
+  align-items: center;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  gap: 15px; /* Space between image and text */
 }
 
-.commentInput {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  resize: none;
-  font-size: 1rem;
+.commentsSection ul li img {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px; /* Slightly rounded corners */
+  object-fit: cover;
+  border: 1px solid #ccc;
 }
 
-.postCommentButton {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  font-size: 1rem;
+.commentsSection ul li strong {
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  margin-right: 10px;
 }
 
-.postCommentButton:hover {
-  background-color: #0056b3;
+.commentsSection ul li span {
+  display: block;
+  font-size: 1rem;
+  color: #333;
 }

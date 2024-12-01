@@ -14,6 +14,7 @@ interface FormData {
   service: number;
   cleanliness: number;
   comments: string;
+  images: string;
 }
 
 
@@ -28,6 +29,7 @@ export default function DiningHallForm() {
     service: 5,
     cleanliness: 5,
     comments: '',
+    images: ''
   });
 
   const diningHalls = [
@@ -85,6 +87,7 @@ export default function DiningHallForm() {
     
         if (res.ok) {
           console.log("Form submitted successfully");
+          console.log("form data: ", formData)
           router.push("/pages/Dashboard");
         } else {
           console.error("Form submission failed");
@@ -149,6 +152,20 @@ export default function DiningHallForm() {
                 className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
               />
             </div>
+
+            <div className="space-y-2">
+              <label className="block font-medium">
+                Upload Image:
+              </label>
+              <textarea
+                name="images"
+                value={formData.images}
+                onChange={handleChange}
+                placeholder="https://images.unsplash.com/photo-1"
+                className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
+              />
+            </div>
+
           </div>
 
           <button

@@ -13,6 +13,7 @@ interface FormData {
   cheapness: number;
   waitTime: number;
   comments: string;
+  images: string;
 }
 
 // Main Form Component
@@ -26,6 +27,7 @@ export default function RestaurantForm() {
     cheapness: 5,
     waitTime: 5,
     comments: '',
+    images: ''
   });
 
   const restaurants = [
@@ -142,6 +144,19 @@ export default function RestaurantForm() {
                 value={formData.comments}
                 onChange={handleChange}
                 placeholder="Fantastic!"
+                className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block font-medium">
+                Upload Image:
+              </label>
+              <textarea
+                name="images"
+                value={formData.images}
+                onChange={handleChange}
+                placeholder="https://images.unsplash.com/photo-1"
                 className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
               />
             </div>

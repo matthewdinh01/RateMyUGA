@@ -158,3 +158,8 @@
     background-color: #007bff;
     color: #ffffff;
   }
+
+  .images {
+    height: 250px;
+    width: 250px;
+  }
